@@ -20,11 +20,11 @@ public class GamemodeCommand implements CommandExecutor {
             int index = label.equals("gamemode") || label.equals(("gm")) ? 1 : 0;
             Player target = (args.length > index) ? Bukkit.getPlayer(args[index]) : player;
 
-            if (target == null) {
-                player.sendMessage(ChatColor.RED + "Player " + args[index] + " not found.");
-                return true;
-            } else if (player != target && !player.hasPermission("vitals.gamemode.other")) {
+            if (target != null && player != target && !player.hasPermission("vitals.gamemode.other")) {
                 player.sendMessage(ChatColor.RED + "Insufficient permissions.");
+                return true;
+            } else if (target == null) {
+                player.sendMessage(ChatColor.RED + "Player " + args[index] + " not found.");
                 return true;
             }
 
