@@ -2,3 +2,9 @@ name: Vitals
 version: '${version}'
 main: com.marco.vitals.Vitals
 api-version: 1.19
+commands:
+  gamemode:
+    description: Set the gamemode of a player.
+    aliases: [gm, gmc, gms, gma, gmsp]
+    usage: /<command> [gamemode] [target]
+    permission: vitals.gamemode
