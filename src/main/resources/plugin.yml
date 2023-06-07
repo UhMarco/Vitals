@@ -1,0 +1,4 @@
+name: Vitals
+version: '${version}'
+main: com.marco.vitals.Vitals
+api-version: 1.19
