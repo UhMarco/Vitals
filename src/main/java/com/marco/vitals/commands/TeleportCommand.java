@@ -26,6 +26,10 @@ public class TeleportCommand implements CommandExecutor {
                     player.teleport(destination);
                 }
                 case 2 -> {
+                    if (!player.hasPermission("vitals.teleport.others")) {
+                        player.sendMessage(ChatColor.RED + "Insufficient permissions.");
+                        return true;
+                    }
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target == null) {
                         player.sendMessage(ChatColor.RED + "Player " + args[0] + " not found.");
