@@ -11,6 +11,10 @@ public class OverseerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player player) {
+            if (!player.hasPermission("vitals.overseer")) {
+                player.sendMessage(ChatColor.RED + "Insufficient permissions.");
+                return true;
+            }
             boolean current = Boolean.TRUE.equals(Vitals.overseers.get(player.getUniqueId()));
             Vitals.overseers.put(player.getUniqueId(), !current);
             sender.sendMessage(ChatColor.GRAY + "[Vitals: Overseer " + (current ? "enabled" : "disabled") + "]");

@@ -7,9 +7,11 @@ commands:
     description: Change player gamemode.
     aliases: [gm, gmc, gms, gma, gmsp]
     usage: /<command> [gamemode] [target]
-    permission: vitals.gamemode
+  tp:
+    description: Teleport to a player.
+    aliases: [teleport]
+    usage: /<command> <player> [target]
   overseer:
     description: Toggle overseer.
     aliases: [os, toggleoverseer]
-    usage: /overseer
-    permission: vitals.overseer
+    usage: /<command>

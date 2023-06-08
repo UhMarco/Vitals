@@ -2,6 +2,7 @@ package com.marco.vitals;
 
 import com.marco.vitals.commands.GameModeCommand;
 import com.marco.vitals.commands.OverseerCommand;
+import com.marco.vitals.commands.TeleportCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +27,7 @@ public final class Vitals extends JavaPlugin {
     @Override
     public void onEnable() {
         getCommand("gamemode").setExecutor(new GameModeCommand());
+        getCommand("tp").setExecutor(new TeleportCommand());
         getCommand("overseer").setExecutor(new OverseerCommand());
     }
 }
