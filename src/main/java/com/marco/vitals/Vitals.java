@@ -1,10 +1,12 @@
 package com.marco.vitals;
 
 import com.marco.vitals.commands.*;
+import com.marco.vitals.listeners.PlayerLeaveListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -60,5 +62,7 @@ public final class Vitals extends JavaPlugin {
         getCommand("togglemessages").setExecutor(new ToggleMessagesCommand());
         getCommand("sounds").setExecutor(new SoundsCommand());
         getCommand("overseer").setExecutor(new OverseerCommand());
+
+        getServer().getPluginManager().registerEvents(new PlayerLeaveListener(), this);
     }
 }

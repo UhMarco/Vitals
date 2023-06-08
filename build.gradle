@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.marco'
-version = '1.0'
+version = ''
 
 repositories {
     mavenCentral()
