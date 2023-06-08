@@ -23,7 +23,7 @@ public class GameModeCommand implements TabExecutor {
             int index = label.equals("gamemode") || label.equals(("gm")) ? 1 : 0;
             Player target = (args.length > index) ? Bukkit.getPlayer(args[index]) : player;
 
-            if (target != null && player != target && !player.hasPermission("vitals.gamemode.other")) {
+            if (target != null && player != target && !player.hasPermission("vitals.gamemode.others")) {
                 player.sendMessage(ChatColor.RED + "Insufficient permissions.");
                 return true;
             } else if (target == null) {

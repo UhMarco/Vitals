@@ -11,6 +11,10 @@ commands:
     description: Teleport to a player.
     aliases: [teleport]
     usage: /<command> <player> [target]
+  back:
+    description: Teleport to your location prior to teleporting.
+    aliases: [return]
+    useage: /<command> [player]
   overseer:
     description: Toggle overseer.
     aliases: [os, toggleoverseer]

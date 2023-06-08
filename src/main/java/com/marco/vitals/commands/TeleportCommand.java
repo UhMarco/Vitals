@@ -1,5 +1,6 @@
 package com.marco.vitals.commands;
 
+import com.marco.vitals.Vitals;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -22,7 +23,8 @@ public class TeleportCommand implements CommandExecutor {
                         player.sendMessage(ChatColor.RED + "Player " + args[0] + " not found.");
                         return true;
                     }
-                    // TODO: Add back functionality
+                    Vitals.overseerReport(player.getDisplayName() + " teleported to " + destination.getDisplayName());
+                    Vitals.backs.put(player.getUniqueId(), player.getLocation());
                     player.teleport(destination);
                 }
                 case 2 -> {
@@ -40,7 +42,8 @@ public class TeleportCommand implements CommandExecutor {
                         player.sendMessage(ChatColor.RED + "Player " + args[1] + " not found.");
                         return true;
                     }
-                    // TODO: Add back functionality
+                    Vitals.overseerReport(player.getDisplayName() + " teleported " + target.getDisplayName() + " to " + destination.getDisplayName());
+                    Vitals.backs.put(target.getUniqueId(), target.getLocation());
                     target.teleport(destination);
                 }
                 default -> player.sendMessage(ChatColor.GRAY + "Usage: /tp <player> [target]");
