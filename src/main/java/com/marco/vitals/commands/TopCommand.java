@@ -22,7 +22,7 @@ public class TopCommand implements CommandExecutor {
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "Player " + args[0] + " not found.");
                 return true;
-            } else if (target != player && Vitals.lacksPermission(player, "vitals.top.others")) return true;
+            } else if (target != player && Vitals.lacksPermission(player, "teleport.top.others")) return true;
 
             int x = target.getLocation().getBlockX();
             int z = target.getLocation().getBlockZ();

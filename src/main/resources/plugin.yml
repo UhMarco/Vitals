@@ -27,6 +27,9 @@ commands:
   top:
     description: Teleport to the heighest block above you.
     usage: /<command> [player]
+  world:
+    description: Teleport to a world.
+    usage: /<command> <world> [player]
   back:
     description: Teleport to your location prior to teleporting.
     aliases: [return]

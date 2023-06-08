@@ -23,13 +23,6 @@ public class TeleportPositionCommand implements TabExecutor {
             if (3 > args.length || args.length > 4) {
                 player.sendMessage(ChatColor.GRAY + "Usage: /tppos <x> <y> <z> [world]");
                 return true;
-            } else if (args.length == 4) {
-                if (Vitals.lacksPermission(player, "teleport.world")) return true;
-                World world = Bukkit.getWorld(args[3]);
-                if (world == null) {
-                    player.sendMessage(ChatColor.RED + "World " + args[3] + " not found.");
-                    return true;
-                }
             }
 
             double x = args[0].startsWith("~") ? player.getLocation().getX() + (args[0].length() > 1 ? Double.parseDouble(args[0].substring(1)) : 0) : Double.parseDouble(args[0]);

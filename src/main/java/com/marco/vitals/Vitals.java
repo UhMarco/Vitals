@@ -42,6 +42,7 @@ public final class Vitals extends JavaPlugin {
         getCommand("tppos").setExecutor(new TeleportPositionCommand());
         getCommand("tpall").setExecutor(new TeleportAllCommand());
         getCommand("top").setExecutor(new TopCommand());
+        getCommand("world").setExecutor(new WorldCommand());
         getCommand("back").setExecutor(new BackCommand());
         getCommand("overseer").setExecutor(new OverseerCommand());
     }
