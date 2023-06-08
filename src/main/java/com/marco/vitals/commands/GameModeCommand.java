@@ -1,5 +1,6 @@
 package com.marco.vitals.commands;
 
+import com.marco.vitals.Vitals;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -8,7 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class GamemodeCommand implements CommandExecutor {
+public class GameModeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player player) {
@@ -28,8 +29,6 @@ public class GamemodeCommand implements CommandExecutor {
                 return true;
             }
 
-            // TODO: Send message to admins that someone has updated someone's gamemode.
-
             if (index == 1) {
                 if (args.length == 0) {
                     player.sendMessage(ChatColor.GRAY + "Usage: /gamemode <gamemode> [target]");
@@ -37,18 +36,18 @@ public class GamemodeCommand implements CommandExecutor {
                 }
                 String gm = args[0].toLowerCase();
                 switch (gm) {
-                    case "creative", "c" -> target.setGameMode(GameMode.CREATIVE);
-                    case "survival", "s" -> target.setGameMode(GameMode.SURVIVAL);
-                    case "spectator", "sp" -> target.setGameMode(GameMode.SPECTATOR);
-                    case "adventure", "a" -> target.setGameMode(GameMode.ADVENTURE);
+                    case "creative", "c" -> updateGameMode(player, target, GameMode.CREATIVE);
+                    case "survival", "s" -> updateGameMode(player, target, GameMode.SURVIVAL);
+                    case "spectator", "sp" -> updateGameMode(player, target, GameMode.SPECTATOR);
+                    case "adventure", "a" -> updateGameMode(player, target, GameMode.ADVENTURE);
                     default -> player.sendMessage(ChatColor.GRAY + "Usage: /gamemode <gamemode> [target]");
                 }
             } else {
                 switch (label) {
-                    case "gmc" -> target.setGameMode(GameMode.CREATIVE);
-                    case "gms" -> target.setGameMode(GameMode.SURVIVAL);
-                    case "gmsp" -> target.setGameMode(GameMode.SPECTATOR);
-                    case "gma" -> target.setGameMode(GameMode.ADVENTURE);
+                    case "gmc" -> updateGameMode(player, target, GameMode.CREATIVE);
+                    case "gms" -> updateGameMode(player, target, GameMode.SURVIVAL);
+                    case "gmsp" -> updateGameMode(player, target, GameMode.SPECTATOR);
+                    case "gma" -> updateGameMode(player, target, GameMode.ADVENTURE);
                 }
             }
 
@@ -57,5 +56,16 @@ public class GamemodeCommand implements CommandExecutor {
 
         sender.sendMessage(ChatColor.RED + "Only players can run this command.");
         return false;
+    }
+
+    private void updateGameMode(Player sender, Player target, GameMode gm) {
+        if (target.getGameMode() == gm) return;
+        target.setGameMode(gm);
+        target.sendMessage("Gamemode updated.");
+        if (sender != target) {
+            Vitals.overseerReport(sender.getDisplayName() + " set " + target.getDisplayName() + "'s gamemode to " + gm.toString().toLowerCase());
+        } else {
+            Vitals.overseerReport(sender.getDisplayName() + " set their gamemode to " + gm.toString().toLowerCase());
+        }
     }
 }

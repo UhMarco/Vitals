@@ -4,7 +4,12 @@ main: com.marco.vitals.Vitals
 api-version: 1.19
 commands:
   gamemode:
-    description: Set the gamemode of a player.
+    description: Change player gamemode.
     aliases: [gm, gmc, gms, gma, gmsp]
     usage: /<command> [gamemode] [target]
     permission: vitals.gamemode
+  overseer:
+    description: Toggle overseer.
+    aliases: [os, toggleoverseer]
+    usage: /overseer
+    permission: vitals.overseer
