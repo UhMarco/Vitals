@@ -1,16 +1,32 @@
 name: Vitals
 version: '${version}'
 main: com.marco.vitals.Vitals
+description: Lite utility command plugin.
 api-version: 1.19
 commands:
   gamemode:
     description: Change player gamemode.
     aliases: [gm, gmc, gms, gma, gmsp]
-    usage: /<command> [gamemode] [target]
+    usage: /gamemode [gamemode] [target]
   tp:
     description: Teleport to a player.
     aliases: [teleport]
     usage: /<command> <player> [target]
+  tphere:
+    description: Teleport a player to you.
+    aliases: [teleporthere, s]
+    usage: /<command> <player>
+  tppos:
+    description: Teleport to a location.
+    aliases: [teleportposition, tpposition]
+    usage: /<command> <x> <y> <z> [world]
+  tpall:
+    description: Teleport all players to your location.
+    aliases: [teleportall]
+    usage: /<command> [player]
+  top:
+    description: Teleport to the heighest block above you.
+    usage: /<command> [player]
   back:
     description: Teleport to your location prior to teleporting.
     aliases: [return]

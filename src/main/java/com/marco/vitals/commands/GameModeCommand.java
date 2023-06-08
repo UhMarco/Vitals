@@ -15,18 +15,13 @@ public class GameModeCommand implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player player) {
-            if (!player.hasPermission("vitals.gamemode")) {
-                player.sendMessage(ChatColor.RED + "Insufficient permissions.");
-                return true;
-            }
+            if (Vitals.lacksPermission(player, "gamemode")) return true;
 
             int index = label.equals("gamemode") || label.equals(("gm")) ? 1 : 0;
             Player target = (args.length > index) ? Bukkit.getPlayer(args[index]) : player;
 
-            if (target != null && player != target && !player.hasPermission("vitals.gamemode.others")) {
-                player.sendMessage(ChatColor.RED + "Insufficient permissions.");
-                return true;
-            } else if (target == null) {
+            if (target != null && player != target && Vitals.lacksPermission(player, "gamemode.others")) return true;
+            else if (target == null) {
                 player.sendMessage(ChatColor.RED + "Player " + args[index] + " not found.");
                 return true;
             }
@@ -57,7 +52,7 @@ public class GameModeCommand implements TabExecutor {
         }
 
         sender.sendMessage(ChatColor.RED + "Only players can run this command.");
-        return false;
+        return true;
     }
 
     private void updateGameMode(Player sender, Player target, GameMode gm) {
@@ -65,9 +60,9 @@ public class GameModeCommand implements TabExecutor {
         target.setGameMode(gm);
         target.sendMessage("Gamemode updated.");
         if (sender != target) {
-            Vitals.overseerReport(sender.getDisplayName() + " set " + target.getDisplayName() + "'s gamemode to " + gm.toString().toLowerCase());
+            Vitals.overseerReport(sender.getName() + " set " + target.getName() + "'s gamemode to " + gm.toString().toLowerCase());
         } else {
-            Vitals.overseerReport(sender.getDisplayName() + " set their gamemode to " + gm.toString().toLowerCase());
+            Vitals.overseerReport(sender.getName() + " set their gamemode to " + gm.toString().toLowerCase());
         }
     }
 

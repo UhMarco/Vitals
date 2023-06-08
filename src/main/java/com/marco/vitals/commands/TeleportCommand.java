@@ -4,18 +4,18 @@ import com.marco.vitals.Vitals;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class TeleportCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TeleportCommand implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player player) {
-            if (!player.hasPermission("vitals.teleport")) {
-                player.sendMessage(ChatColor.RED + "Insufficient permissions.");
-                return true;
-            }
+            if (Vitals.lacksPermission(player, "teleport")) return true;
             switch (args.length) {
                 case 1 -> {
                     Player destination = Bukkit.getPlayer(args[0]);
@@ -23,15 +23,12 @@ public class TeleportCommand implements CommandExecutor {
                         player.sendMessage(ChatColor.RED + "Player " + args[0] + " not found.");
                         return true;
                     }
-                    Vitals.overseerReport(player.getDisplayName() + " teleported to " + destination.getDisplayName());
+                    Vitals.overseerReport(player.getName() + " teleported to " + destination.getDisplayName());
                     Vitals.backs.put(player.getUniqueId(), player.getLocation());
                     player.teleport(destination);
                 }
                 case 2 -> {
-                    if (!player.hasPermission("vitals.teleport.others")) {
-                        player.sendMessage(ChatColor.RED + "Insufficient permissions.");
-                        return true;
-                    }
+                    if (Vitals.lacksPermission(player, "teleport.others")) return true;
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target == null) {
                         player.sendMessage(ChatColor.RED + "Player " + args[0] + " not found.");
@@ -42,7 +39,7 @@ public class TeleportCommand implements CommandExecutor {
                         player.sendMessage(ChatColor.RED + "Player " + args[1] + " not found.");
                         return true;
                     }
-                    Vitals.overseerReport(player.getDisplayName() + " teleported " + target.getDisplayName() + " to " + destination.getDisplayName());
+                    Vitals.overseerReport(player.getName() + " teleported " + target.getName() + " to " + destination.getName());
                     Vitals.backs.put(target.getUniqueId(), target.getLocation());
                     target.teleport(destination);
                 }
@@ -52,6 +49,16 @@ public class TeleportCommand implements CommandExecutor {
         }
 
         sender.sendMessage(ChatColor.RED + "Only players can run this command.");
-        return false;
+        return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length > 2) return null;
+        List<String> players = new ArrayList<>();
+        Bukkit.getOnlinePlayers().forEach(p -> {
+            if (args.length != 1 || p != sender) players.add(p.getName());
+        });
+        return players;
     }
 }
