@@ -16,6 +16,9 @@ public final class Vitals extends JavaPlugin {
     // True means disabled - allowing this feature to be enabled by default.
 
     public static Map<UUID, Location> backs = new HashMap<>();
+    public static Map<UUID, UUID> conversations = new HashMap<>();
+    public static Map<UUID, Boolean> toggledMessages = new HashMap<>();
+    public static Map<UUID, Boolean> toggledSounds = new HashMap<>();
 
     public static void overseerReport(String message) {
         Bukkit.getOnlinePlayers().forEach(player -> {
@@ -24,6 +27,14 @@ public final class Vitals extends JavaPlugin {
             }
         });
         Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + "[Vitals: " + message + "]");
+    }
+
+    public static boolean hasToggledMessages(Player player) {
+        return Boolean.TRUE.equals(toggledMessages.get(player.getUniqueId()));
+    }
+
+    public static boolean shouldPlayMessageSound(Player player) {
+        return !Boolean.TRUE.equals(toggledSounds.get(player.getUniqueId()));
     }
 
     public static boolean lacksPermission(Player player, String permission) {
@@ -44,6 +55,10 @@ public final class Vitals extends JavaPlugin {
         getCommand("top").setExecutor(new TopCommand());
         getCommand("world").setExecutor(new WorldCommand());
         getCommand("back").setExecutor(new BackCommand());
+        getCommand("message").setExecutor(new MessageCommand());
+        getCommand("reply").setExecutor(new ReplyCommand());
+        getCommand("togglemessages").setExecutor(new ToggleMessagesCommand());
+        getCommand("sounds").setExecutor(new SoundsCommand());
         getCommand("overseer").setExecutor(new OverseerCommand());
     }
 }

@@ -1,7 +1,7 @@
 name: Vitals
 version: '${version}'
 main: com.marco.vitals.Vitals
-description: Lite utility command plugin.
+description: Light utility command plugin.
 api-version: 1.19
 commands:
   gamemode:
@@ -34,6 +34,21 @@ commands:
     description: Teleport to your location prior to teleporting.
     aliases: [return]
     useage: /<command> [player]
+  message:
+    description: Send a message to another player.
+    aliases: [msg, whisper, w]
+    usage: /<command> <player> <message>
+  reply:
+    description: Reply to the last person to send you a message.
+    aliases: [r]
+    usage: /<command> <message>
+  togglemessages:
+    description: Toggle receiving messages.
+    aliases: [tpm]
+    usage: /<command>
+  sounds:
+    description: Toggle message sounds.
+    usage: /<command>
   overseer:
     description: Toggle overseer.
     aliases: [os, toggleoverseer]
