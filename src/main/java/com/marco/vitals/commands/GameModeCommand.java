@@ -1,15 +1,17 @@
 package com.marco.vitals.commands;
 
+import com.google.common.collect.ImmutableList;
 import com.marco.vitals.Vitals;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
-public class GameModeCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameModeCommand implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player player) {
@@ -66,6 +68,17 @@ public class GameModeCommand implements CommandExecutor {
             Vitals.overseerReport(sender.getDisplayName() + " set " + target.getDisplayName() + "'s gamemode to " + gm.toString().toLowerCase());
         } else {
             Vitals.overseerReport(sender.getDisplayName() + " set their gamemode to " + gm.toString().toLowerCase());
+        }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        if ((label.equals("gamemode") || label.equals("gm")) && args.length == 1) {
+            return ImmutableList.of("creative", "survival", "adventure", "spectator");
+        } else {
+            List<String> players = new ArrayList<>();
+            Bukkit.getOnlinePlayers().forEach(p -> players.add(p.getName()));
+            return players;
         }
     }
 }
