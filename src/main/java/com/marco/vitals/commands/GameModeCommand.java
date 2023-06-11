@@ -9,6 +9,7 @@ import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameModeCommand implements TabExecutor {
@@ -70,10 +71,13 @@ public class GameModeCommand implements TabExecutor {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if ((label.equals("gamemode") || label.equals("gm")) && args.length == 1) {
             return ImmutableList.of("creative", "survival", "adventure", "spectator");
-        } else {
+        } else if (args.length == 2 || (!label.equals("gamemode") && !label.equals("gm") && args.length == 1)) {
             List<String> players = new ArrayList<>();
-            Bukkit.getOnlinePlayers().forEach(p -> players.add(p.getName()));
+            Bukkit.getOnlinePlayers().forEach(p -> {
+                if (p.getName().toLowerCase().startsWith(args[args.length - 1].toLowerCase())) players.add(p.getName());
+            });
             return players;
         }
+        return Collections.emptyList();
     }
 }

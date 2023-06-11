@@ -50,7 +50,7 @@ public class MessageCommand implements TabExecutor {
         if (args.length == 1) {
             List<String> players = new ArrayList<>();
             Bukkit.getOnlinePlayers().forEach(p -> {
-                if (p != sender) players.add(p.getName());
+                if (p != sender && p.getName().toLowerCase().startsWith(args[args.length - 1].toLowerCase())) players.add(p.getName());
             });
             return players;
         }

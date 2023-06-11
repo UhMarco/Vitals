@@ -10,6 +10,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class WorldCommand implements TabExecutor {
@@ -51,10 +52,10 @@ public class WorldCommand implements TabExecutor {
         if (args.length == 1) {
             List<String> worlds = new ArrayList<>();
             Bukkit.getWorlds().forEach(w -> {
-                if (w != ((Player) sender).getWorld()) worlds.add(w.getName());
+                if (w != ((Player) sender).getWorld() && w.getName().toLowerCase().startsWith(args[args.length - 1].toLowerCase())) worlds.add(w.getName());
             });
             return worlds;
         }
-        return null;
+        return Collections.emptyList();
     }
 }

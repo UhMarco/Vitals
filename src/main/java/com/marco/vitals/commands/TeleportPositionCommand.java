@@ -12,6 +12,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TeleportPositionCommand implements TabExecutor {
@@ -59,11 +60,13 @@ public class TeleportPositionCommand implements TabExecutor {
             }
             case 4 -> {
                 List<String> worlds = new ArrayList<>();
-                Bukkit.getWorlds().forEach(w -> worlds.add(w.getName()));
+                Bukkit.getWorlds().forEach(w -> {
+                    if (w.getName().toLowerCase().startsWith(args[args.length - 1].toLowerCase())) worlds.add(w.getName());
+                });
                 return worlds;
             }
             default -> {
-                return null;
+                return Collections.emptyList();
             }
         }
     }
