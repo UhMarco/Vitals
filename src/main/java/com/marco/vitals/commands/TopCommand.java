@@ -30,9 +30,9 @@ public class TopCommand implements TabExecutor {
 
             Location unsafe = new Location(
                     target.getWorld(),
-                    x,
+                    x + 0.5,
                     target.getWorld().getHighestBlockYAt(x, z) + 1,
-                    z,
+                    z + 0.5,
                     target.getLocation().getYaw(),
                     target.getLocation().getPitch()
             );
