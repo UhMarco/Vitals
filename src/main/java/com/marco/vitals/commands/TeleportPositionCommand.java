@@ -50,13 +50,21 @@ public class TeleportPositionCommand implements TabExecutor {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         switch (args.length) {
             case 1 -> {
-                return ImmutableList.of("~", "~ ~", "~ ~ ~");
+                List<String> tabs = new ArrayList<>();
+                List.of("~", "~ ~", "~ ~ ~").forEach(t -> {
+                    if (t.startsWith(args[0])) tabs.add(t);
+                });
+                return tabs;
             }
             case 2 -> {
-                return ImmutableList.of("~", "~ ~");
+                List<String> tabs = new ArrayList<>();
+                List.of("~", "~ ~").forEach(t -> {
+                    if (t.startsWith(args[1])) tabs.add(t);
+                });
+                return tabs;
             }
             case 3 -> {
-                return ImmutableList.of("~");
+                return args[2].length() == 0 ? List.of("~") : Collections.emptyList();
             }
             case 4 -> {
                 List<String> worlds = new ArrayList<>();

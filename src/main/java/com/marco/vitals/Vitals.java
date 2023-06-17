@@ -49,6 +49,8 @@ public final class Vitals extends JavaPlugin {
     @Override
     public void onEnable() {
         getCommand("gamemode").setExecutor(new GameModeCommand());
+        getCommand("heal").setExecutor(new HealCommand());
+        getCommand("feed").setExecutor(new FeedCommand());
         getCommand("tp").setExecutor(new TeleportCommand());
         getCommand("tphere").setExecutor(new TeleportHereCommand());
         getCommand("tppos").setExecutor(new TeleportPositionCommand());
